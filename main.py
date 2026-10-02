@@ -7,9 +7,9 @@ from openai import OpenAI
 load_dotenv(override=True)
 
 # ----------------------------------------------------
-# 1. SAĞLAYICI AYARI (Gemini veya Ollama)
+# 1. PROVIDER CONFIGURATION (Switch model via USE_OLLAMA flag)
 # ----------------------------------------------------
-# Varsayılan olarak Gemini ayarlı; Ollama kullanmak istersen OLLAMA_BASE_URL'i açabilirsin
+
 USE_OLLAMA = True
 
 if USE_OLLAMA:
@@ -26,14 +26,14 @@ else:
     MODEL_NAME = "models/gemini-3.7-flash"
 
 # ----------------------------------------------------
-# 2. PROMPT VE ŞABLONLAR
+# 2. PROMPT TEMPLATES
 # ----------------------------------------------------
 SYSTEM_PROMPT = """
-Sen bir yazılım uzmanısın ve web sitelerini tararken özetler veriyorsun.
+You’re a witty AI assistant. Answer questions with a joke.
 """
 
 USER_PROMPT_PREFIX = """
-Burada bir web sitesinin içeriği var. Bu web sitesinin özetini ver:
+Here is the content of a website. Summarize the website:
 """
 
 def messages_for(website_content):
@@ -43,7 +43,7 @@ def messages_for(website_content):
     ]
 
 # ----------------------------------------------------
-# 3. ÖZETLEME FONKSİYONU
+# 3. SUMMARIZATION PIPELINE
 # ----------------------------------------------------
 def summarize(url):
     print(f"[{MODEL_NAME}] ile web sitesi taranıyor: {url}...")
